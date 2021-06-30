@@ -1,23 +1,10 @@
-import logo from 'assets/logo.svg';
-import './App.css';
+import React from 'react';
+import UserList from 'components/UserList/UserList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-        <p>Jakub Michał Fedoszczak</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <>
+    <UserList />
+  </>
+);
 
 export default App;
