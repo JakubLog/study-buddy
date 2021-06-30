@@ -5,11 +5,13 @@ import Button from 'components/atoms/Button/Button';
 import Person from 'components/atoms/Person/Person';
 import Average from 'components/atoms/Average/Average';
 
-const UserListItem = ({ userData: { name, attendance, average = '0%' } }) => (
+const printPersonPosition = (number) => alert(`Osoba #${number + 1} na liście`);
+
+const UserListItem = ({ i, userData: { name, attendance, average = '0%' } }) => (
   <StyledListItem>
     <Average average={average} />
     <Person name={name} attendance={attendance} />
-    <Button />
+    <Button onClick={() => printPersonPosition(i)} />
   </StyledListItem>
 );
 
