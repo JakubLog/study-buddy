@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         font-family: 'Montserrat', sans-serif;
+        color: ${({ theme }) => theme.colors.text}
     }
     *, *::after, *::before {
         box-sizing: inherit;
