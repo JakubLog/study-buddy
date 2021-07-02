@@ -1,14 +1,36 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useContext } from 'react';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
 import { Positioner } from './AddUser.styles';
 import { ViewWrapper } from 'components/molecules/VievWrapper/ViewWrapper';
 import { Title } from 'components/atoms/Title/Title';
+import { UserContext } from 'Providers/UserContext';
 
-const AddUser = ({ formValues, changeFormValue, addNewUser }) => {
+const initialFormState = {
+  name: '',
+  attendance: '',
+  average: '',
+};
+
+const AddUser = () => {
+  const [formValues, setFormValues] = useState(initialFormState);
+  const { addNewUser } = useContext(UserContext);
+
+  const changeFormValue = (e) => {
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitNewUser = (e) => {
+    e.preventDefault();
+    addNewUser(formValues);
+    setFormValues(initialFormState);
+  };
+
   return (
-    <ViewWrapper as="form" onSubmit={addNewUser}>
+    <ViewWrapper as="form" onSubmit={submitNewUser}>
       <Positioner>
         <Title>Add new student</Title>
         <FormField label="Name" name="name" id="name" value={formValues.name} onChange={changeFormValue} />
@@ -18,12 +40,6 @@ const AddUser = ({ formValues, changeFormValue, addNewUser }) => {
       </Positioner>
     </ViewWrapper>
   );
-};
-
-AddUser.propTypes = {
-  formValues: PropTypes.object.isRequired,
-  changeFormValue: PropTypes.func.isRequired,
-  addNewUser: PropTypes.func.isRequired,
 };
 
 export default AddUser;
