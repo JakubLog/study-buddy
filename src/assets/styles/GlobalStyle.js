@@ -7,9 +7,12 @@ export const GlobalStyle = createGlobalStyle`
     }
     body {
         font-family: 'Montserrat', sans-serif;
-        color: ${({ theme }) => theme.colors.text}
+        color: ${({ theme }) => theme.colors.text};
     }
     *, *::after, *::before {
         box-sizing: inherit;
+    }
+    input, button, a {
+        color: ${({ theme }) => theme.colors.text};
     }
 `;
