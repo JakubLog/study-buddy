@@ -37,7 +37,7 @@ export const StyledLink = styled(NavLink).attrs({ activeClassName })`
     height: 3px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: ${({ theme }) => theme.colors.darkPurple};
+    background-color: ${({ theme }) => theme.colors.darkGrey};
   }
 `;
 
@@ -51,6 +51,10 @@ export const Logo = styled.div`
   width: 100%;
   font-size: ${({ theme }) => theme.fontSize.l};
   padding: 13px 15px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   background-color: ${({ theme }) => theme.colors.text};
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
