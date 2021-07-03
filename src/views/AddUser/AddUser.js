@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
 import { Positioner } from './AddUser.styles';
 import { ViewWrapper } from 'components/molecules/VievWrapper/ViewWrapper';
 import { Title } from 'components/atoms/Title/Title';
 import { UserContext } from 'Providers/UserContext';
+import { useForm } from 'hooks/useForm';
 
 const initialFormState = {
   name: '',
@@ -13,20 +14,13 @@ const initialFormState = {
 };
 
 const AddUser = () => {
-  const [formValues, setFormValues] = useState(initialFormState);
   const { addNewUser } = useContext(UserContext);
-
-  const changeFormValue = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { formValues, changeFormValue, clearFormValue } = useForm(initialFormState);
 
   const submitNewUser = (e) => {
     e.preventDefault();
     addNewUser(formValues);
-    setFormValues(initialFormState);
+    clearFormValue();
   };
 
   return (

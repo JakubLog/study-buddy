@@ -1,5 +1,5 @@
 import { screen, fireEvent } from '@testing-library/dom';
-import '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import { RenderWithProviders } from 'helpers/RenderWithProviders';
 import Dashboard from 'views/Dashboard/Dashboard';
 import AddUser from 'views/AddUser/AddUser';
@@ -16,6 +16,5 @@ it('Add user protocol', () => {
   fireEvent.change(screen.getByLabelText('Average'), { target: { value: '6.0' } });
   fireEvent.click(screen.getByText('Add'));
   screen.getByText('TestedUser');
+  expect(screen.getByLabelText('Name')).toHaveValue('');
 });
-
-d;
