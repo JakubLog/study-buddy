@@ -1,38 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NewsWrapper, NewsTitle } from './NewsSection.styles';
 import NewsArticle from 'components/organisms/NewsArticle/NewsArticle';
+import axios from 'axios';
 
-const data = [
-  {
-    title: 'lorem ipsum',
-    category: 'category',
-    feed: 'lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet',
-  },
-  {
-    title: 'lorem ipsum2',
-    category: 'category',
-    feed: 'lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet',
-  },
-  {
-    title: 'lorem ipsum3',
-    category: 'category',
-    feed: 'lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet',
-    image: 'https://picsum.photos/200',
-  },
-  {
-    title: 'lorem ipsum4',
-    category: 'category',
-    feed: 'lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet lorem ipsum lorem ipsum sit dolor amet',
-  },
-];
+export const query = `{
+  allArticles {
+    id
+    title,
+    category,
+    feed,
+    image {
+      url
+    }
+  }
+}`;
 
 const NewsSection = () => {
+  const [articles, setArticles] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    axios
+      .post(
+        'https://graphql.datocms.com/',
+        {
+          query,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}`,
+          },
+        }
+      )
+      .then(
+        ({
+          data: {
+            data: { allArticles },
+          },
+        }) => setArticles(allArticles)
+      )
+      .catch(() => setError('Upsss! Something went wrong!'));
+  }, []);
+
   return (
     <NewsWrapper>
       <NewsTitle>University news feed</NewsTitle>
-      {data.map(({ title, category, feed, image = null }) => (
-        <NewsArticle key={title} title={title} category={category} feed={feed} image={image} />
-      ))}
+      {articles.length > 0 ? (
+        articles.map(({ id, title, category, feed, image = null }) => (
+          <NewsArticle key={id} title={title} category={category} feed={feed} image={image} />
+        ))
+      ) : (
+        <NewsTitle>{error ? error : 'Loading...'}</NewsTitle>
+      )}
     </NewsWrapper>
   );
 };

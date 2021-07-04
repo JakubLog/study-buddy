@@ -9,7 +9,7 @@ const NewsArticle = ({ title, category, feed, image }) => {
       <ArticleCategory>{category}</ArticleCategory>
       <ArticleFeed isImage={image ? true : false}>
         {feed}
-        {image ? <img src={image} alt="article" /> : null}
+        {image ? <img src={image.url} alt="article" /> : null}
       </ArticleFeed>
 
       <Button isBig>Read more</Button>
