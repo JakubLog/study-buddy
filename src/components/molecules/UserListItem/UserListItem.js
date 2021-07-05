@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { UserShape } from 'types';
 import PropTypes from 'prop-types';
 import { StyledListItem } from './UserListItem.styles';
-import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
+import IconButton from 'components/atoms/IconButton/IconButton';
 import Person from 'components/atoms/Person/Person';
 import Average from 'components/atoms/Average/Average';
-import { UserContext } from 'Providers/UserContext';
 
 const UserListItem = ({ userData: { name, attendance, average = '0%' } }) => {
-  const { deleteUser } = useContext(UserContext);
   return (
     <StyledListItem>
       <Average average={average} />
       <Person name={name} attendance={attendance} />
-      <DeleteButton onClick={() => deleteUser(name)} />
+      <IconButton type="OPINION" />
+      <IconButton type="MESSAGE" />
+      <IconButton type="DELETE" />
     </StyledListItem>
   );
 };

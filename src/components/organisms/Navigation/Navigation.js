@@ -9,10 +9,7 @@ const Navigation = () => {
       </Logo>
       <nav>
         <NavList>
-          <StyledLink exact to="/">
-            Dashboard
-          </StyledLink>
-          <StyledLink to="/add-user">Add User</StyledLink>
+          <StyledLink to="/group">Dashboard</StyledLink>
         </NavList>
       </nav>
     </Wrapper>

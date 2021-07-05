@@ -4,10 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { theme } from 'assets/styles/theme';
 import { Wrapper } from './App.styles';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AddUser from 'views/AddUser/AddUser';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
-import UserProvider from 'Providers/UserContext';
 
 const App = () => {
   return (
@@ -15,18 +13,16 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <MainTemplate>
-          <UserProvider>
-            <Wrapper>
-              <Switch>
-                <Route path="/" exact>
-                  <Dashboard />
-                </Route>
-                <Route path="/add-user">
-                  <AddUser />
-                </Route>
-              </Switch>
-            </Wrapper>
-          </UserProvider>
+          <Wrapper>
+            <Switch>
+              <Route path="/" exact>
+                <Redirect to="/group/" />
+              </Route>
+              <Route path="/group/:id?">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </Wrapper>
         </MainTemplate>
       </ThemeProvider>
     </Router>
