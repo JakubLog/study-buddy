@@ -6,12 +6,12 @@ import IconButton from 'components/atoms/IconButton/IconButton';
 import Person from 'components/atoms/Person/Person';
 import Average from 'components/atoms/Average/Average';
 
-const UserListItem = ({ userData: { name, attendance, average = '0%' } }) => {
+const UserListItem = ({ openModal, userData: { id, name, attendance, average = '0%' } }) => {
   return (
     <StyledListItem>
       <Average average={average} />
       <Person name={name} attendance={attendance} />
-      <IconButton type="OPINION" />
+      <IconButton type="OPINION" onClick={() => openModal(id)} />
       <IconButton type="MESSAGE" />
       <IconButton type="DELETE" />
     </StyledListItem>

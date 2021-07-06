@@ -36,4 +36,29 @@ export const handlers = [
       })
     );
   }),
+  rest.get('/student/:id', (req, res, ctx) => {
+    if (req.params.id) {
+      const studentData = students.find((student) => student.id === req.params.id);
+      if (!studentData) {
+        return res(
+          ctx.status('404'),
+          ctx.json({
+            error: 'No matching records!',
+          })
+        );
+      }
+      return res(
+        ctx.status('200'),
+        ctx.json({
+          students: studentData,
+        })
+      );
+    }
+    return res(
+      ctx.status('200'),
+      ctx.json({
+        students,
+      })
+    );
+  }),
 ];

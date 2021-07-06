@@ -13,7 +13,7 @@ const decide = (type) => {
     case 'OPINION':
       return <IconOpinion />;
     default:
-      return <IconDelete />;
+      return;
   }
 };
 

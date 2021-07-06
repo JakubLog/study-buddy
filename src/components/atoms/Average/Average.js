@@ -1,9 +1,11 @@
 import React from 'react';
 import { Wrapper, StyledAverage } from './Average.styles';
 
-const Average = ({ average }) => (
+const Average = ({ average, ...props }) => (
   <Wrapper>
-    <StyledAverage average={average}>{average}</StyledAverage>
+    <StyledAverage {...props} average={average}>
+      {average}
+    </StyledAverage>
   </Wrapper>
 );
 

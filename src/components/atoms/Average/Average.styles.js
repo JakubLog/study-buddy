@@ -14,10 +14,10 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledAverage = styled.div`
-  width: 35px;
-  height: 35px;
+  width: ${({ isBig }) => (isBig ? '50px' : '35px')};
+  height: ${({ isBig }) => (isBig ? '50px' : '35px')};
   display: flex;
-  font-size: ${({ theme }) => theme.fontSize.s};
+  font-size: ${({ theme, isBig }) => (isBig ? theme.fontSize.l : theme.fontSize.s)};
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
   align-items: center;

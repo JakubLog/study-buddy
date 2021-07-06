@@ -6,12 +6,16 @@ import { DashboardWrapper } from './Dashboard.styles';
 import InfoBar from 'components/molecules/InfoBar/InfoBar';
 import { useParams } from 'react-router';
 import useDashboard from 'hooks/useDashboard';
+import Modal from 'components/organisms/Modal/Modal';
+import useModal from 'hooks/useModal';
+import StudentInfo from 'components/molecules/StudentInfo/StudentInfo';
 
 const Dashboard = () => {
   const { id } = useParams();
   const [groups, setGroups] = useState([]);
   const [users, setUsers] = useState([]);
   const { getGroups, getStudents } = useDashboard();
+  const { openModal, closeModal, isOpen, returnedData } = useModal();
 
   useEffect(() => {
     (async () => {
@@ -31,8 +35,13 @@ const Dashboard = () => {
     <DashboardWrapper>
       <InfoBar activeGroup={id} groups={groups} />
       <ViewWrapper>
-        <UserList users={users} />
+        <UserList openModal={openModal} users={users} />
       </ViewWrapper>
+      {isOpen ? (
+        <Modal closeModal={closeModal}>
+          <StudentInfo data={returnedData} />
+        </Modal>
+      ) : null}
     </DashboardWrapper>
   );
 };
