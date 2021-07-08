@@ -6,7 +6,7 @@ const useSearchBar = (searchInput) => {
 
   const prepareStudents = (data = [], phrase) => {
     phrase = phrase.toLowerCase();
-    const prepared = data.filter((student) => student.name.toLowerCase().indexOf(phrase) === 1 || student.name.toLowerCase().indexOf(phrase) === 0);
+    const prepared = data.filter((student) => student.name.toLowerCase().indexOf(phrase) !== -1);
     const namesArray = prepared.map((item) => item.name);
     setFound(namesArray);
   };

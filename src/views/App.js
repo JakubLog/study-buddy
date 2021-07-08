@@ -1,32 +1,57 @@
 import React from 'react';
 import Dashboard from './Dashboard/Dashboard';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from 'assets/styles/GlobalStyle';
-import { theme } from 'assets/styles/theme';
 import { Wrapper } from './App.styles';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
+import { useForm } from 'react-hook-form';
+import FormField from 'components/molecules/FormField/FormField';
+import { Button } from 'components/atoms/Button/Button';
+import useAuth from 'hooks/useAuth';
+
+const AuthorizedComponent = () => {
+  return (
+    <MainTemplate>
+      <Wrapper>
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/group/" />
+          </Route>
+          <Route path="/group/:id?">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Wrapper>
+    </MainTemplate>
+  );
+};
+
+const UnAuthorizedComponent = () => {
+  const auth = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  return (
+    <form
+      onSubmit={handleSubmit(auth.signIn)}
+      style={{ height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}
+    >
+      <FormField label="Login" name="login" id="login" {...register('login', { required: true })} />
+      {errors.login && <p>Login is required</p>}
+      <FormField label="Password" name="password" id="password" type="password" {...register('password', { required: true })} />
+      {errors.password && <p>Password is required</p>}
+      <Button>Login in</Button>
+    </form>
+  );
+};
 
 const App = () => {
-  return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <MainTemplate>
-          <Wrapper>
-            <Switch>
-              <Route path="/" exact>
-                <Redirect to="/group/" />
-              </Route>
-              <Route path="/group/:id?">
-                <Dashboard />
-              </Route>
-            </Switch>
-          </Wrapper>
-        </MainTemplate>
-      </ThemeProvider>
-    </Router>
-  );
+  const auth = useAuth();
+
+  return <>{auth.user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}</>;
 };
 
 export default App;
