@@ -8,6 +8,8 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'Montserrat', sans-serif;
         color: ${({ theme }) => theme.colors.text};
+        height: 100vh;
+        overflow-y: hidden;
     }
     *, *::after, *::before {
         box-sizing: inherit;

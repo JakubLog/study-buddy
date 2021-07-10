@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useError } from './useError';
 
 const useModal = (initialState = false) => {
   const [modalState, setModalState] = useState(initialState);
   const [returnedData, setReturnedData] = useState({});
+  const { dispatchError } = useError();
 
   const findById = (id) => {
     axios
       .get(`/student/${id}`)
       .then(({ data: { students } }) => setReturnedData(students))
-      .catch((err) => console.error(err));
+      .catch((err) => dispatchError("We can't now get students. Please contact with support."));
   };
 
   const closeModal = () => setModalState(false);

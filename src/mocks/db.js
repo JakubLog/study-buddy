@@ -22,7 +22,7 @@ export const db = factory({
         average: generateAverage(),
       },
       {
-        subject: 'Act',
+        subject: 'Science Intelligence',
         average: generateAverage(),
       },
       {

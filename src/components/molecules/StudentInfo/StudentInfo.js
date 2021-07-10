@@ -20,16 +20,12 @@ const StudentInfo = ({ data }) => {
         </p>
         <p>Average grades:</p>
         <StudentAverageGrades>
-          <StyledItem>
-            Modern Economy
-            <Average id="average" average={data.average} />
-          </StyledItem>
-          <StyledItem>
-            Trade and Logisitcs <Average id="average" average={data.average} />
-          </StyledItem>
-          <StyledItem>
-            Business Philosophy <Average id="average" average={data.average} />
-          </StyledItem>
+          {data.grades.map((grade) => (
+            <StyledItem>
+              {grade.subject}
+              <Average id="average" average={grade.average} />
+            </StyledItem>
+          ))}
         </StudentAverageGrades>
         <p>
           Attendance in semester: <span style={{ fontWeight: 'bold' }}>{data.attendance}</span>

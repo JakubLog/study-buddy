@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
 import useAuth from 'hooks/useAuth';
+import { useError } from 'hooks/useError';
+import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 
 const AuthorizedComponent = () => {
   return (
@@ -50,8 +52,14 @@ const UnAuthorizedComponent = () => {
 
 const App = () => {
   const auth = useAuth();
+  const { error } = useError();
 
-  return <>{auth.user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}</>;
+  return (
+    <>
+      {error ? <ErrorMessage message={error} /> : null}
+      {auth.user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}
+    </>
+  );
 };
 
 export default App;
