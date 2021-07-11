@@ -35,6 +35,12 @@ export const db = factory({
     id: primaryKey(faker.datatype.uuid),
     name: () => '',
   },
+  events: {
+    id: primaryKey(faker.datatype.uuid),
+    name: () => faker.fake('{{random.word}}'),
+    content: () => faker.fake('{{random.words}}'),
+    group: () => generateGroup(faker.datatype.number({ min: 0, max: 2 })),
+  },
   user: {
     id: primaryKey(faker.datatype.uuid),
     name: () => 'Jakub Sobczak',

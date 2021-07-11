@@ -1,8 +1,11 @@
 import React from 'react';
 import { Title } from 'components/atoms/Title/Title';
-import { InfoBarWrapper, StyledLink } from './InfoBar.styles';
+import { InfoBarWrapper, StyledLink, EventButton } from './InfoBar.styles';
+import useModal from 'hooks/useModal';
+import Events from '../Events/Events';
 
 const InfoBar = ({ activeGroup, groups = [] }) => {
+  const { isOpen, closeModal, openModalEvents, returnedData } = useModal();
   return (
     <InfoBarWrapper>
       <Title>Group {activeGroup ? activeGroup : 'A'}</Title>
@@ -13,6 +16,8 @@ const InfoBar = ({ activeGroup, groups = [] }) => {
           </StyledLink>
         ))}
       </nav>
+      <EventButton onClick={() => openModalEvents(activeGroup)}>Show group events</EventButton>
+      <Events isOpen={isOpen} closeModal={closeModal} returnedData={returnedData} />
     </InfoBarWrapper>
   );
 };

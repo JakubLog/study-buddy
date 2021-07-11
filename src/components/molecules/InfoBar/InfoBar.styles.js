@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button } from 'components/atoms/Button/Button';
 
 export const InfoBarWrapper = styled.div`
   display: flex;
@@ -26,4 +27,10 @@ export const StyledLink = styled(NavLink).attrs({ activeClassName })`
     background-color: ${({ theme }) => theme.colors.text};
     color: ${({ theme }) => theme.colors.white};
   }
+`;
+
+export const EventButton = styled(Button)`
+  margin-left: auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px -6px ${({ theme }) => theme.colors.black};
 `;

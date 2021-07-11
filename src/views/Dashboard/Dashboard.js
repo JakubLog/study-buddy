@@ -9,13 +9,15 @@ import useDashboard from 'hooks/useDashboard';
 import Modal from 'components/organisms/Modal/Modal';
 import useModal from 'hooks/useModal';
 import StudentInfo from 'components/molecules/StudentInfo/StudentInfo';
+import { useEvents } from 'hooks/useEvents';
 
 const Dashboard = () => {
   const { id } = useParams();
   const [groups, setGroups] = useState([]);
   const [users, setUsers] = useState([]);
   const { getGroups, getStudents } = useDashboard();
-  const { openModal, closeModal, isOpen, returnedData } = useModal();
+  const { openModalStudents, closeModal, isOpen, returnedData } = useModal();
+  const { changeGroup } = useEvents();
 
   useEffect(() => {
     (async () => {
@@ -26,6 +28,9 @@ const Dashboard = () => {
       const users = await getStudents(id, groups);
       setUsers(users);
     })();
+    (() => {
+      changeGroup(id);
+    })();
     // eslint-disable-next-line
   }, [id]);
 
@@ -35,7 +40,7 @@ const Dashboard = () => {
     <DashboardWrapper>
       <InfoBar activeGroup={id} groups={groups} />
       <ViewWrapper>
-        <UserList openModal={openModal} users={users} />
+        <UserList openModal={openModalStudents} users={users} />
       </ViewWrapper>
       {isOpen ? (
         <Modal closeModal={closeModal}>

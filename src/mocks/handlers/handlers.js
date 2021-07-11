@@ -102,4 +102,22 @@ export const handlers = [
     }
     return res(ctx.status(401));
   }),
+  rest.get('/events/:group', (req, res, ctx) => {
+    const events = db.events.findMany({
+      where: {
+        group: {
+          equals: req.params.group,
+        },
+      },
+    });
+    if (events) {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          events,
+        })
+      );
+    }
+    return res(ctx.status(404), ctx.json({ error: 'Group not found' }));
+  }),
 ];

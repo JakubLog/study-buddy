@@ -7,23 +7,32 @@ const useModal = (initialState = false) => {
   const [returnedData, setReturnedData] = useState({});
   const { dispatchError } = useError();
 
-  const findById = (id) => {
-    axios
-      .get(`/student/${id}`)
-      .then(({ data: { students } }) => setReturnedData(students))
-      .catch((err) => dispatchError("We can't now get students. Please contact with support."));
+  const findStudentById = async (id) => {
+    try {
+      const {
+        data: { students },
+      } = await axios.get(`/student/${id}`);
+      setReturnedData(students);
+    } catch (e) {
+      dispatchError("Sorry, now we can't get student info!");
+    }
+  };
+
+  const openModalStudents = async (id) => {
+    await findStudentById(id);
+    setModalState(true);
+  };
+
+  const openModalEvents = async (group) => {
+    setModalState(true);
   };
 
   const closeModal = () => setModalState(false);
-  const openModal = (id) => {
-    findById(id);
-    setModalState(true);
-    console.log(returnedData);
-  };
 
   return {
     closeModal,
-    openModal,
+    openModalEvents,
+    openModalStudents,
     isOpen: modalState,
     returnedData,
   };

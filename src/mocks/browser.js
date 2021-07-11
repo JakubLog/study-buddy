@@ -12,6 +12,14 @@ const createStudents = (count = 15) => {
 
 createStudents();
 
+const createEvents = (count = 15) => {
+  for (let i = 0; i < count; i++) {
+    db.events.create();
+  }
+};
+
+createEvents();
+
 db.group.create({ name: 'A' });
 db.group.create({ name: 'B' });
 db.group.create({ name: 'C' });
