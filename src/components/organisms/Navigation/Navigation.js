@@ -12,6 +12,7 @@ const Navigation = () => {
       <nav>
         <NavList>
           <StyledLink to="/group">Dashboard</StyledLink>
+          <StyledLink to="/notes">Notes</StyledLink>
           <StyledLink as="a" style={{ cursor: 'pointer' }} onClick={auth.signOut}>
             Logout
           </StyledLink>

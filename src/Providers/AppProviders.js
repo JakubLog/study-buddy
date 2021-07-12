@@ -6,21 +6,25 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProvider } from 'hooks/useAuth';
 import { ErrorProvider } from 'hooks/useError';
 import EventsProvider from 'hooks/useEvents';
+import { store } from 'store/index';
+import { Provider } from 'react-redux';
 
 const AppProviders = ({ children }) => {
   return (
-    <Router>
-      <ErrorProvider>
-        <AuthProvider>
-          <EventsProvider>
-            <ThemeProvider theme={theme}>
-              <GlobalStyle />
-              {children}
-            </ThemeProvider>
-          </EventsProvider>
-        </AuthProvider>
-      </ErrorProvider>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <ErrorProvider>
+          <AuthProvider>
+            <EventsProvider>
+              <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                {children}
+              </ThemeProvider>
+            </EventsProvider>
+          </AuthProvider>
+        </ErrorProvider>
+      </Router>
+    </Provider>
   );
 };
 

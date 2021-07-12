@@ -22,6 +22,7 @@ const EventsProvider = ({ children }) => {
         dispatchError("Sorry, now we can't get events info!");
       }
     })();
+    //eslint-disable-next-line
   }, [group]);
 
   return <EventsContext.Provider value={{ events, changeGroup }}>{children}</EventsContext.Provider>;

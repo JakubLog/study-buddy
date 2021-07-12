@@ -4,10 +4,14 @@ import { Label } from 'components/atoms/Label/Label';
 import { Input } from 'components/atoms/Input/Input';
 import { Wrapper } from './FormField.styles';
 
-const FormField = React.forwardRef(({ onChange, value, name, label, type = 'text', id, ...props }, ref) => (
+const FormField = React.forwardRef(({ onChange, value, name, label, type = 'text', id, isArea, ...props }, ref) => (
   <Wrapper>
     <Label htmlFor={id}>{label}</Label>
-    <Input name={name} type={type} id={id} onChange={onChange} value={value} ref={ref} {...props} />
+    {isArea ? (
+      <Input as="textarea" isArea name={name} type={type} id={id} onChange={onChange} value={value} ref={ref} {...props} />
+    ) : (
+      <Input name={name} type={type} id={id} onChange={onChange} value={value} ref={ref} {...props} />
+    )}
   </Wrapper>
 ));
 

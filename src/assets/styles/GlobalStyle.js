@@ -9,7 +9,8 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
         color: ${({ theme }) => theme.colors.text};
         height: 100vh;
-        overflow-y: hidden;
+        overflow: hidden;
+        margin: 0;
     }
     *, *::after, *::before {
         box-sizing: inherit;

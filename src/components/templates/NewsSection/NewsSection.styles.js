@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NewsArticleWrapper } from 'components/organisms/NewsArticle/NewsArticle.styles';
+import { NewsArticleWrapper } from 'components/organisms/Navigation/NewsArticle/NewsArticle.styles';
 
 export const NewsWrapper = styled.div`
   border-left: 2px solid ${({ theme }) => theme.colors.darkGrey};
