@@ -10,6 +10,7 @@ import useAuth from 'hooks/useAuth';
 import { useError } from 'hooks/useError';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
 import Notes from './Notes/Notes';
+import Todo from './Todo/Todo';
 
 const AuthorizedComponent = () => {
   return (
@@ -24,6 +25,9 @@ const AuthorizedComponent = () => {
           </Route>
           <Route path="/notes/">
             <Notes />
+          </Route>
+          <Route path="/todolist/">
+            <Todo />
           </Route>
         </Switch>
       </Wrapper>

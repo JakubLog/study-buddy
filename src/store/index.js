@@ -1,42 +1,54 @@
-import { createStore } from 'redux';
 import { v4 as uuid } from 'uuid';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-export const addNote = (payload) => {
-  return {
-    type: 'note/add',
-    payload: {
-      id: uuid(),
-      ...payload,
+const notesReducer = createSlice({
+  name: 'notes',
+  initialState: [],
+  reducers: {
+    addNote(state, action) {
+      state.push({
+        id: uuid(),
+        ...action.payload,
+      });
     },
-  };
-};
+    removeNote(state, action) {
+      return state.filter((note) => note.id !== action.payload.id);
+    },
+  },
+});
 
-export const removeNote = (payload) => {
-  return {
-    type: 'note/remove',
-    payload,
-  };
-};
+const todoSlice = createSlice({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    addTodo(state, action) {
+      state.push({
+        id: uuid(),
+        isActive: true,
+        ...action.payload,
+      });
+    },
+    changeStateTodo(state, action) {
+      const newState = state.filter((note) => note.id !== action.payload.id);
+      newState.push({
+        id: uuid(),
+        isActive: false,
+        ...action.payload,
+      });
+      return newState;
+    },
+    removeTodo(state, action) {
+      return state.filter((note) => note.id !== action.payload.id);
+    },
+  },
+});
 
-const initialState = {
-  notes: [],
-};
+export const { addNote, removeNote } = notesReducer.actions;
+export const { addTodo, changeStateTodo, removeTodo } = todoSlice.actions;
 
-const storeReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'note/add':
-      return {
-        ...state,
-        notes: [...state.notes, action.payload],
-      };
-    case 'note/remove':
-      return {
-        ...state,
-        notes: state.notes.filter((note) => note.id !== action.payload.id),
-      };
-    default:
-      return state;
-  }
-};
-
-export const store = createStore(storeReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+export const store = configureStore({
+  reducer: {
+    notes: notesReducer.reducer,
+    todos: todoSlice.reducer,
+  },
+});

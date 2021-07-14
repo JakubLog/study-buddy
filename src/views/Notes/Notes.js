@@ -13,10 +13,9 @@ const Notes = () => {
 
   const { register, reset, handleSubmit } = useForm();
 
-  const handleAddNote = (object) => {
-    const { title, content } = object;
-    reset();
+  const handleAddNote = ({ title, content }) => {
     dispatch(addNote({ title, content }));
+    reset();
   };
 
   return (
