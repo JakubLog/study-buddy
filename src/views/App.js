@@ -36,7 +36,16 @@ const AuthorizedComponent = () => {
 };
 
 const UnAuthorizedComponent = () => {
-  const auth = useAuth();
+  const { signIn } = useAuth();
+  const { dispatchError } = useError();
+
+  const process = async (data) => {
+    try {
+      await signIn(data);
+    } catch (err) {
+      dispatchError(err.message);
+    }
+  };
 
   const {
     register,
@@ -46,26 +55,33 @@ const UnAuthorizedComponent = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(auth.signIn)}
+      onSubmit={handleSubmit(process)}
       style={{ height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}
     >
-      <FormField label="Login" name="login" id="login" {...register('login', { required: true })} />
-      {errors.login && <p>Login is required</p>}
-      <FormField label="Password" name="password" id="password" type="password" {...register('password', { required: true })} />
-      {errors.password && <p>Password is required</p>}
-      <Button>Login in</Button>
+      <FormField style={{ marginBottom: '20px' }} label="Login" name="login" id="login" {...register('login', { required: true })} />
+      <FormField
+        style={{ marginBottom: '10px' }}
+        label="Password"
+        name="password"
+        id="password"
+        type="password"
+        {...register('password', { required: true })}
+      />
+      {errors.password && <text>Password is required</text>}
+      {errors.login && <text>Login is required</text>}
+      <Button style={{ marginTop: '10px' }}>Login in</Button>
     </form>
   );
 };
 
 const App = () => {
-  const auth = useAuth();
+  const { user } = useAuth();
   const { error } = useError();
 
   return (
     <>
       {error ? <ErrorMessage message={error} /> : null}
-      {auth.user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}
+      {user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}
     </>
   );
 };

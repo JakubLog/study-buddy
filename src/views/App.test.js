@@ -22,8 +22,8 @@ describe('App components', () => {
     render(<App />);
     const login = screen.getByLabelText('Login');
     const password = screen.getByLabelText('Password');
-    fireEvent.change(login, { target: { value: 'cool@gmail.com' } });
-    fireEvent.change(password, { target: { value: 'admin' } });
+    fireEvent.change(login, { target: { value: 'kontakt.jakubfedoszczak@gmail.com' } });
+    fireEvent.change(password, { target: { value: 'Kuba2007' } });
 
     fireEvent.click(screen.getByText('Login in'));
 

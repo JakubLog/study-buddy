@@ -1,39 +1,31 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
-import { useError } from './useError';
+import { auth } from '../firebase';
 
 const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const { dispatchError } = useError();
+  const [isLoading, setLoading] = useState(true);
+  const [user, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      (async () => {
-        const response = await axios.get('/me', { headers: { authorization: `Bearer ${token}` } });
-        if (response) setUser(response.data);
-      })();
-    }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return unsubscribe;
   }, []);
 
-  const signIn = async ({ login, password }) => {
-    try {
-      const response = await axios.post('/login', { login, password });
-      setUser(response.data);
-      localStorage.setItem('token', response.data.token);
-    } catch (e) {
-      dispatchError('Invalid login or password');
-    }
+  const signIn = ({ login, password }) => auth.signInWithEmailAndPassword(login, password);
+  const signOut = () => auth.signOut();
+
+  const value = {
+    user,
+    signIn,
+    signOut,
   };
 
-  const signOut = () => {
-    localStorage.removeItem('token');
-    setUser(null);
-  };
-
-  return <AuthContext.Provider value={{ user, signIn, signOut }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{isLoading ? <p>Loading...</p> : children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
