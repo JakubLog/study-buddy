@@ -23,7 +23,7 @@ const useModal = (initialState = false) => {
     setModalState(true);
   };
 
-  const openModalEvents = async (group) => {
+  const openModalEvents = () => {
     setModalState(true);
   };
 

@@ -20,6 +20,9 @@ const createEvents = (count = 15) => {
 
 createEvents();
 
+db.note.create();
+db.note.create();
+
 db.group.create({ name: 'A' });
 db.group.create({ name: 'B' });
 db.group.create({ name: 'C' });

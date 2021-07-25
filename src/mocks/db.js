@@ -47,4 +47,9 @@ export const db = factory({
     login: () => 'cool@gmail.com',
     password: () => 'admin',
   },
+  note: {
+    id: primaryKey(faker.datatype.uuid),
+    title: () => 'lorem ipsum dolor sit amet',
+    content: () => 'lorem ipsum dolor sit amet',
+  },
 });

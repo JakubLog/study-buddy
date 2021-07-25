@@ -1,21 +1,37 @@
 import { v4 as uuid } from 'uuid';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const notesReducer = createSlice({
-  name: 'notes',
-  initialState: [],
-  reducers: {
-    addNote(state, action) {
-      state.push({
-        id: uuid(),
-        ...action.payload,
-      });
-    },
-    removeNote(state, action) {
-      return state.filter((note) => note.id !== action.payload.id);
-    },
-  },
+const notesApi = createApi({
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/',
+  }),
+  tagTypes: ['notes'],
+  endpoints: (builder) => ({
+    getNotes: builder.query({
+      query: () => 'notes',
+      providesTags: ['notes'],
+    }),
+    addNote: builder.mutation({
+      query: (body) => ({
+        url: 'notes',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['notes'],
+    }),
+    removeNote: builder.mutation({
+      query: (body) => ({
+        url: 'removeNote',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['notes'],
+    }),
+  }),
 });
+
+export const { useGetNotesQuery, useRemoveNoteMutation, useAddNoteMutation } = notesApi;
 
 const todoSlice = createSlice({
   name: 'todos',
@@ -43,12 +59,12 @@ const todoSlice = createSlice({
   },
 });
 
-export const { addNote, removeNote } = notesReducer.actions;
 export const { addTodo, changeStateTodo, removeTodo } = todoSlice.actions;
 
 export const store = configureStore({
   reducer: {
-    notes: notesReducer.reducer,
+    [notesApi.reducerPath]: notesApi.reducer,
     todos: todoSlice.reducer,
   },
+  middleware: (getDefaultMiddlewar) => getDefaultMiddlewar().concat(notesApi.middleware),
 });

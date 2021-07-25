@@ -1,12 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { removeNote } from 'store';
+import { useRemoveNoteMutation } from 'store';
 import { NoteWrapper, NoteTitle, NoteContent, NoteButton } from './Note.styles';
 
 const Note = ({ title, content, id }) => {
-  const dispatch = useDispatch();
+  const [removeNote, rest] = useRemoveNoteMutation();
 
-  const handleDeleteNote = () => dispatch(removeNote({ id }));
+  const handleDeleteNote = () => removeNote({ id });
   return (
     <NoteWrapper>
       <NoteTitle>{title}</NoteTitle>

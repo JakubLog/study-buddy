@@ -1,13 +1,14 @@
 import Note from 'components/molecules/Note/Note';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useGetNotesQuery } from 'store';
 import { WidgetWrapper, WidgetButton, NotesWrapper, TodoWrapper, ElementsWrapper } from './Widget.styles';
 import TodoItem from 'components/molecules/TodoItem/TodoItem';
 
 const NotesWidget = () => {
   const [isExpanded, setExpandedState] = React.useState(false);
-  const receviedNotes = useSelector((state) => state.notes);
   const todos = useSelector((state) => state.todos);
+  const { data, isLoading } = useGetNotesQuery();
 
   const toggleState = () => setExpandedState((prev) => (prev = !prev));
 
@@ -25,13 +26,17 @@ const NotesWidget = () => {
         Info
       </WidgetButton>
       <ElementsWrapper>
-        <NotesWrapper>
-          {receviedNotes.length > 0 ? (
-            receviedNotes.map(({ id, title, content }) => <Note id={id} key={id} title={title} content={content} />)
-          ) : (
-            <p>No notes found yet.</p>
-          )}
-        </NotesWrapper>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <NotesWrapper>
+            {data.notes.length > 0 ? (
+              data.notes.map(({ id, title, content }) => <Note id={id} key={id} title={title} content={content} />)
+            ) : (
+              <p>No notes found yet.</p>
+            )}
+          </NotesWrapper>
+        )}
         <TodoWrapper>{getActiveTodos(todos)}</TodoWrapper>
       </ElementsWrapper>
     </WidgetWrapper>

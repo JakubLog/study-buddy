@@ -2,6 +2,7 @@ import { students } from 'mocks/data/students';
 import { rest } from 'msw';
 import { db } from 'mocks/db';
 import { authenticateRequest } from 'mocks/helper';
+import faker from 'faker';
 
 const userSanitize = (data) => {
   const { id, password, ...sanitized } = data;
@@ -119,5 +120,27 @@ export const handlers = [
       );
     }
     return res(ctx.status(404), ctx.json({ error: 'Group not found' }));
+  }),
+  rest.get('/notes', (req, res, ctx) => {
+    const allNotes = db.note.getAll();
+    return res(ctx.status('200'), ctx.json({ notes: allNotes }));
+  }),
+  rest.post('/notes', (req, res, ctx) => {
+    if (req.body.title && req.body.content) {
+      db.note.create({
+        id: faker.datatype.uuid(),
+        title: req.body.title,
+        content: req.body.content,
+      });
+      return res(ctx.status('200'), ctx.json({ status: 'Added new post!' }));
+    }
+    return res(ctx.status('404'), ctx.json({ error: 'Not Found' }));
+  }),
+  rest.post('/removeNote', (req, res, ctx) => {
+    if (req.body.id) {
+      db.note.delete({ where: { id: { equals: req.body.id } } });
+      return res(ctx.status('200'), ctx.json({ status: 'Removed post!' }));
+    }
+    return res(ctx.status('404'), ctx.json({ error: 'Not Found' }));
   }),
 ];
