@@ -1,6 +1,6 @@
 import React from 'react';
 import Dashboard from './Dashboard/Dashboard';
-import { Wrapper } from './App.styles';
+import { Wrapper, AuthWrapper } from './App.styles';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import { useForm } from 'react-hook-form';
@@ -36,7 +36,7 @@ const AuthorizedComponent = () => {
 };
 
 const UnAuthorizedComponent = () => {
-  const { signIn } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const { dispatchError } = useError();
 
   const process = async (data) => {
@@ -54,23 +54,26 @@ const UnAuthorizedComponent = () => {
   } = useForm();
 
   return (
-    <form
-      onSubmit={handleSubmit(process)}
-      style={{ height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}
-    >
-      <FormField style={{ marginBottom: '20px' }} label="Login" name="login" id="login" {...register('login', { required: true })} />
-      <FormField
-        style={{ marginBottom: '10px' }}
-        label="Password"
-        name="password"
-        id="password"
-        type="password"
-        {...register('password', { required: true })}
-      />
-      {errors.password && <text>Password is required</text>}
-      {errors.login && <text>Login is required</text>}
-      <Button style={{ marginTop: '10px' }}>Login in</Button>
-    </form>
+    <AuthWrapper>
+      <form onSubmit={handleSubmit(process)}>
+        <FormField style={{ marginBottom: '20px' }} label="Login" name="login" id="login" {...register('login', { required: true })} />
+        <FormField
+          style={{ marginBottom: '10px' }}
+          label="Password"
+          name="password"
+          id="password"
+          type="password"
+          {...register('password', { required: true })}
+        />
+        {errors.password && <text>Password is required</text>}
+        {errors.login && <text>Login is required</text>}
+        <Button style={{ marginTop: '10px' }}>Login in</Button>
+      </form>
+      <p style={{ marginLeft: '30px' }}>or</p>
+      <Button style={{ marginLeft: '30px' }} onClick={signInWithGoogle}>
+        Sign in with Google
+      </Button>
+    </AuthWrapper>
   );
 };
 
