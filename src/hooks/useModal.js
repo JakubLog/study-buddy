@@ -18,6 +18,17 @@ const useModal = (initialState = false) => {
     }
   };
 
+  const getMessages = async (id) => {
+    try {
+      const {
+        data: { messages },
+      } = await axios.get(`/messages/${id}`);
+      setReturnedData(messages);
+    } catch (e) {
+      dispatchError("Sorry, now we can't get messages!");
+    }
+  };
+
   const openModalStudents = async (id) => {
     await findStudentById(id);
     setModalState(true);
@@ -27,12 +38,18 @@ const useModal = (initialState = false) => {
     setModalState(true);
   };
 
+  const openModalMessages = async (id) => {
+    await getMessages(id);
+    setModalState(true);
+  };
+
   const closeModal = () => setModalState(false);
 
   return {
     closeModal,
     openModalEvents,
     openModalStudents,
+    openModalMessages,
     isOpen: modalState,
     returnedData,
   };

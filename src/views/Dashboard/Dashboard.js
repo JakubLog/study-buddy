@@ -40,7 +40,7 @@ const Dashboard = () => {
     <DashboardWrapper>
       <InfoBar activeGroup={id} groups={groups} />
       <ViewWrapper>
-        <UserList openModal={openModalStudents} users={users} />
+        <UserList openModal={openModalStudents} group={id} users={users} />
       </ViewWrapper>
       {isOpen ? (
         <Modal closeModal={closeModal}>

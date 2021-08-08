@@ -27,4 +27,10 @@ db.group.create({ name: 'A' });
 db.group.create({ name: 'B' });
 db.group.create({ name: 'C' });
 
+db.message.create();
+db.message.create();
+db.message.create();
+db.message.create();
+db.message.create();
+
 db.user.create();

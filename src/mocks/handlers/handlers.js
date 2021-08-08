@@ -143,4 +143,23 @@ export const handlers = [
     }
     return res(ctx.status('404'), ctx.json({ error: 'Not Found' }));
   }),
+  rest.post('/messages', (req, res, ctx) => {
+    if (req.body.title && req.body.description) {
+      db.message.create({
+        title: req.body.title,
+        description: req.body.description,
+        group: req.body.group,
+        author: req.body.author,
+        date: req.body.date,
+      });
+      return res(ctx.status('201'), ctx.json({ status: 'Added new message!' }));
+    }
+    return res(ctx.status('404'), ctx.json({ status: 'Not found!' }));
+  }),
+  rest.get('/messages/:id', (req, res, ctx) => {
+    if (req.params.id) {
+      return res(ctx.status('200'), ctx.json({ messages: db.message.findMany({ where: { group: { equals: req.params.id } } }) }));
+    }
+    return res(ctx.status('404'), ctx.json({ status: 'Not found!' }));
+  }),
 ];

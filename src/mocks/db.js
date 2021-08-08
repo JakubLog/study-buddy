@@ -1,5 +1,6 @@
 import { factory, primaryKey } from '@mswjs/data';
 import faker from 'faker';
+import { getDate } from 'helpers/getDate';
 
 const group = ['A', 'B', 'C'];
 
@@ -51,5 +52,13 @@ export const db = factory({
     id: primaryKey(faker.datatype.uuid),
     title: () => 'lorem ipsum dolor sit amet',
     content: () => 'lorem ipsum dolor sit amet',
+  },
+  message: {
+    id: primaryKey(faker.datatype.uuid),
+    group: () => generateGroup(faker.datatype.number({ min: 0, max: 2 })),
+    title: () => 'Lorem ipsum',
+    description: () => 'Lorem ipsum dolor sit amet',
+    author: () => 'Service Admins',
+    date: () => getDate(),
   },
 });
