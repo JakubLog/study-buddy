@@ -24,8 +24,8 @@ PageInsights scores:
 Try now on: _link_
 Test Login Details:
 
-- Login: test@test.com 👈
-- Password: test123456 👈
+- Login: **test@test.com** 👈
+- Password: **test123456** 👈
 
 ## About UX/UI 🖌️
 
