@@ -1,5 +1,5 @@
 {
-  "extends": ["react-app", "react-app/jest", "plugin:prettier/recommended", "prettier"],
+  "extends": ["react-app", "react-app/jest", "plugin:prettier/recommended", "prettier", "plugin:eslint-plugin-cypress/recommended"],
   "rules": {
     "prettier/prettier": ["warn", { "singleQuote": true, "endOfLine": "auto", "printWidth": 150 }]
   },
