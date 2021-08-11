@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './App';
+import App from '../views/App';
 import { render, screen, fireEvent, waitFor } from 'test-utils';
 
 describe('App components', () => {
@@ -22,8 +22,8 @@ describe('App components', () => {
     render(<App />);
     const login = screen.getByLabelText('Login');
     const password = screen.getByLabelText('Password');
-    fireEvent.change(login, { target: { value: 'kontakt.jakubfedoszczak@gmail.com' } });
-    fireEvent.change(password, { target: { value: 'Kuba2007' } });
+    fireEvent.change(login, { target: { value: 'test@test.com' } });
+    fireEvent.change(password, { target: { value: 'test123456' } });
 
     fireEvent.click(screen.getByText('Login in'));
 

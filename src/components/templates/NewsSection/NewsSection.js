@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NewsWrapper, NewsTitle } from './NewsSection.styles';
-import NewsArticle from 'components/organisms/Navigation/NewsArticle/NewsArticle';
+import NewsArticle from 'components/organisms/NewsArticle/NewsArticle';
 import axios from 'axios';
 
 export const query = `{
