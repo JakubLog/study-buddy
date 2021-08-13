@@ -12,16 +12,16 @@ Maybe school feed? Why not! 🔥
 
 These and a lot of another things you can find in my project. 🌎
 
-Mobile version: yes 🎈
+Mobile version: no :(
 
 PageInsights scores:
 
 - Mobile: **not now**
-- Desktop: **not now**
+- Desktop: **86/100**
 
 ### How can I try it? 🤔
 
-Try now on: _link_
+Try now on: https://serene-colden-2e48c8.netlify.app/
 Test Login Details:
 
 - Login: **test@test.com** 👈
