@@ -3,7 +3,7 @@ import { render, screen } from 'test-utils';
 import '@testing-library/jest-dom';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import NewsSection, { query } from './NewsSection';
+import NewsSection, { query } from '../components/templates/NewsSection/NewsSection';
 
 const mock = new MockAdapter(axios);
 
