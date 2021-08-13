@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Title } from 'components/atoms/Title/Title';
 import { InfoBarWrapper, StyledLink, EventButton } from './InfoBar.styles';
 import useModal from 'hooks/useModal';
@@ -20,6 +21,11 @@ const InfoBar = ({ activeGroup, groups = [] }) => {
       <Events isOpen={isOpen} closeModal={closeModal} returnedData={returnedData} />
     </InfoBarWrapper>
   );
+};
+
+InfoBar.propTypes = {
+  activeGroup: PropTypes.string.isRequired,
+  groups: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default InfoBar;

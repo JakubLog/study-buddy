@@ -15,9 +15,13 @@ const TodoItem = ({ task, content, isActive, id }) => {
       <ItemTitle>{task}</ItemTitle>
       <ItemContent>{content}</ItemContent>
       {isActive ? (
-        <ItemButton onClick={() => changeTodo(id, task, content)}>Done</ItemButton>
+        <ItemButton aria-label="Todo change" onClick={() => changeTodo(id, task, content)}>
+          Done
+        </ItemButton>
       ) : (
-        <ItemButton onClick={() => removeTodo(id)}>Remove</ItemButton>
+        <ItemButton aria-label="Todo remove" onClick={() => removeTodo(id)}>
+          Remove
+        </ItemButton>
       )}
     </ItemWrapper>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Wrapper, StyledAverage } from './Average.styles';
 
 const Average = ({ average, ...props }) => (
@@ -8,5 +9,7 @@ const Average = ({ average, ...props }) => (
     </StyledAverage>
   </Wrapper>
 );
+
+Average.propTypes = { average: PropTypes.number.isRequired };
 
 export default Average;

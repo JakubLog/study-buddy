@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Wrapper, StyledTitle } from './AddMessage.styles';
 import FormField from 'components/molecules/FormField/FormField';
 import { Button } from 'components/atoms/Button/Button';
@@ -46,6 +47,10 @@ const AddMessage = ({ group }) => {
       <Button type="submit">Add message for {group} Group</Button>
     </Wrapper>
   );
+};
+
+AddMessage.propTypes = {
+  group: PropTypes.string.isRequired,
 };
 
 export default AddMessage;

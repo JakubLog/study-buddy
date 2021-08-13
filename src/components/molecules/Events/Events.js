@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'components/organisms/Modal/Modal';
 import { EventsWrapper, EventItem, EventTitle, EventContent } from './Events.styles';
 import { useEvents } from 'hooks/useEvents';
@@ -21,6 +22,11 @@ const Events = ({ isOpen, closeModal }) => {
       ) : null}
     </>
   );
+};
+
+Events.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default Events;
