@@ -4,6 +4,7 @@ import { useRemoveNoteMutation } from 'store';
 import { NoteWrapper, NoteTitle, NoteContent, NoteButton } from './Note.styles';
 
 const Note = ({ title, content, id }) => {
+  // eslint-disable-next-line no-unused-vars
   const [removeNote, rest] = useRemoveNoteMutation();
 
   const handleDeleteNote = () => removeNote({ id });

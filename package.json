@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test ./src/tests",
     "test:e2e": "cypress open --project ./src/e2e",
     "eject": "react-scripts eject",
