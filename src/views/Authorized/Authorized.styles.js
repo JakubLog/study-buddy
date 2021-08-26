@@ -8,11 +8,3 @@ export const Wrapper = styled.div`
   grid-column: 2/3;
   background-color: ${({ theme }) => theme.colors.lightGrey};
 `;
-
-export const AuthWrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;

@@ -1,81 +1,9 @@
 import React from 'react';
-import Dashboard from './Dashboard/Dashboard';
-import { Wrapper, AuthWrapper } from './App.styles';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
-import { useForm } from 'react-hook-form';
-import FormField from 'components/molecules/FormField/FormField';
-import { Button } from 'components/atoms/Button/Button';
 import useAuth from 'hooks/useAuth';
 import { useError } from 'hooks/useError';
 import ErrorMessage from 'components/molecules/ErrorMessage/ErrorMessage';
-import Notes from './Notes/Notes';
-import Todo from './Todo/Todo';
-
-const AuthorizedComponent = () => {
-  return (
-    <MainTemplate>
-      <Wrapper>
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/group/" />
-          </Route>
-          <Route path="/group/:id?">
-            <Dashboard />
-          </Route>
-          <Route path="/notes/">
-            <Notes />
-          </Route>
-          <Route path="/todolist/">
-            <Todo />
-          </Route>
-        </Switch>
-      </Wrapper>
-    </MainTemplate>
-  );
-};
-
-const UnAuthorizedComponent = () => {
-  const { signIn, signInWithGoogle } = useAuth();
-  const { dispatchError } = useError();
-
-  const process = async (data) => {
-    try {
-      await signIn(data);
-    } catch (err) {
-      dispatchError(err.message);
-    }
-  };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  return (
-    <AuthWrapper>
-      <form onSubmit={handleSubmit(process)}>
-        <FormField style={{ marginBottom: '20px' }} label="Login" name="login" id="login" {...register('login', { required: true })} />
-        <FormField
-          style={{ marginBottom: '10px' }}
-          label="Password"
-          name="password"
-          id="password"
-          type="password"
-          {...register('password', { required: true })}
-        />
-        {errors.password && <text>Password is required</text>}
-        {errors.login && <text>Login is required</text>}
-        <Button style={{ marginTop: '10px' }}>Login in</Button>
-      </form>
-      <p style={{ marginLeft: '30px' }}>or</p>
-      <Button style={{ marginLeft: '30px' }} onClick={signInWithGoogle}>
-        Sign in with Google
-      </Button>
-    </AuthWrapper>
-  );
-};
+import Authorized from './Authorized/Authorized';
+import UnAuthorized from './UnAuthorized/UnAuthorized';
 
 const App = () => {
   const { user } = useAuth();
@@ -84,7 +12,7 @@ const App = () => {
   return (
     <>
       {error ? <ErrorMessage message={error} /> : null}
-      {user ? <AuthorizedComponent /> : <UnAuthorizedComponent />}
+      {user ? <Authorized /> : <UnAuthorized />}
     </>
   );
 };
