@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import FormField from 'components/molecules/FormField/FormField';
-import { Button } from 'components/atoms/Button/Button';
 import { useError } from 'hooks/useError';
+import { Button } from 'components/atoms/Button/Button';
 import { Form, AuthWrapper } from './UnAuthorized.styles';
 import useAuth from 'hooks/useAuth';
 
