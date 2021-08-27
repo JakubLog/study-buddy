@@ -39,7 +39,6 @@ const Dashboard = () => {
         <Title>Loading...</Title>
       ) : (
         <>
-          {console.log(groups.groups)}
           <InfoBar activeGroup={id} groups={groups.groups} />
           <ViewWrapper>
             <UserList openModal={openModalStudents} group={id} users={students.students} />
