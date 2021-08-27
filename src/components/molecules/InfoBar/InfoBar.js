@@ -9,11 +9,11 @@ const InfoBar = ({ activeGroup, groups = [] }) => {
   const { isOpen, closeModal, openModalEvents, returnedData } = useModal();
   return (
     <InfoBarWrapper>
-      <Title>Group {activeGroup ? activeGroup : 'A'}</Title>
+      <Title>Group {activeGroup ? activeGroup.name : 'A'}</Title>
       <nav>
         {groups.map((group) => (
-          <StyledLink key={group} to={`/group/${group}`}>
-            {group}
+          <StyledLink key={group} to={`/group/${group.name}`}>
+            {group.name}
           </StyledLink>
         ))}
       </nav>
