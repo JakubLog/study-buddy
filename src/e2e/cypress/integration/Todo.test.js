@@ -28,6 +28,8 @@ describe('Study Buddy App', () => {
   it('Removes & changes new todo', () => {
     cy.findAllByText('Cypress todo content').first().parent().findByLabelText('Todo change').click();
     cy.findAllByText('Cypress todo content').should('exist');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000);
     cy.findAllByText('Cypress todo content').first().parent().findByLabelText('Todo remove').click();
     cy.findAllByText('Cypress todo content').should('not.exist');
   });
