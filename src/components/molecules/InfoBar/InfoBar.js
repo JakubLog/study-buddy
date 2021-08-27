@@ -24,8 +24,8 @@ const InfoBar = ({ activeGroup, groups = [] }) => {
 };
 
 InfoBar.propTypes = {
-  activeGroup: PropTypes.string.isRequired,
-  groups: PropTypes.arrayOf(PropTypes.string),
+  activeGroup: PropTypes.shape({ id: PropTypes.string, name: PropTypes.string }).isRequired,
+  groups: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.string, name: PropTypes.string })),
 };
 
 export default InfoBar;

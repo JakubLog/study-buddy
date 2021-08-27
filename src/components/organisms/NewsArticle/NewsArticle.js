@@ -22,7 +22,7 @@ NewsArticle.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   feed: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
 };
 
 export default NewsArticle;
