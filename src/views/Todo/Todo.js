@@ -4,13 +4,12 @@ import React from 'react';
 import { TodoWrapper, StyledTitle, TodoForm, TodoContent, TodoItemsWrapper, TodoActive, TodoUnactive } from './Todo.styles';
 import { useForm } from 'react-hook-form';
 import TodoItem from 'components/molecules/TodoItem/TodoItem';
-import { useSelector, useDispatch } from 'react-redux';
-import { addTodo } from 'store';
 import { useGetTodosQuery } from 'store';
 import { useAddTodoMutation } from 'store';
 
 const Todo = () => {
   const { register, handleSubmit, reset } = useForm();
+  // eslint-disable-next-line no-unused-vars
   const [addTodo, rest] = useAddTodoMutation();
   const { data: todos, isLoading } = useGetTodosQuery();
 
