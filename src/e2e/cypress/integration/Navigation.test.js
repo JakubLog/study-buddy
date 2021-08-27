@@ -1,6 +1,6 @@
 const { auth } = require('../../../firebase');
 
-describe('Study Buddy App', () => {
+describe('Study Buddy App | Navigation routing', () => {
   before(() => {
     auth.signOut();
     cy.visit('/');
