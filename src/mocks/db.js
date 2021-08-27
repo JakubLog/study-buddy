@@ -61,4 +61,10 @@ export const db = factory({
     author: () => 'Service Admins',
     date: () => getDate(),
   },
+  todo: {
+    id: primaryKey(faker.datatype.uuid),
+    title: () => 'Lorem ipsum',
+    description: () => 'Lorem ipsum dolor',
+    isActive: () => true,
+  },
 });

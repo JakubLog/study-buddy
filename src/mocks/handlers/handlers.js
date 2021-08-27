@@ -3,6 +3,7 @@ import { rest } from 'msw';
 import { db } from 'mocks/db';
 import { authenticateRequest } from 'mocks/helper';
 import faker from 'faker';
+import { nanoid } from '@reduxjs/toolkit';
 
 const userSanitize = (data) => {
   const { id, password, ...sanitized } = data;
@@ -13,7 +14,7 @@ export const handlers = [
   rest.get('/allStudents/', (req, res, ctx) => {
     const allStudents = db.student.getAll();
     return res(
-      ctx.status('200'),
+      ctx.status(200),
       ctx.json({
         students: allStudents,
       })
@@ -22,7 +23,7 @@ export const handlers = [
   rest.get('/group/', (req, res, ctx) => {
     const allGroups = db.group.getAll();
     return res(
-      ctx.status('200'),
+      ctx.status(200),
       ctx.json({
         groups: allGroups,
       })
@@ -38,7 +39,7 @@ export const handlers = [
         },
       });
       return res(
-        ctx.status('200'),
+        ctx.status(200),
         ctx.json({
           students: filteredUsers,
         })
@@ -56,21 +57,21 @@ export const handlers = [
       });
       if (!studentData) {
         return res(
-          ctx.status('404'),
+          ctx.status(404),
           ctx.json({
             error: 'No matching records!',
           })
         );
       }
       return res(
-        ctx.status('200'),
+        ctx.status(200),
         ctx.json({
           students: studentData,
         })
       );
     }
     return res(
-      ctx.status('200'),
+      ctx.status(200),
       ctx.json({
         students,
       })
@@ -87,7 +88,7 @@ export const handlers = [
     if (user.password === req.body.password) {
       const token = btoa(user.login);
       localStorage.setItem('__be_token__', token);
-      return res(ctx.status('200'), ctx.json({ ...userSanitize(user), token }));
+      return res(ctx.status(200), ctx.json({ ...userSanitize(user), token }));
     }
     return res(
       ctx.status('403'),
@@ -123,7 +124,7 @@ export const handlers = [
   }),
   rest.get('/notes', (req, res, ctx) => {
     const allNotes = db.note.getAll();
-    return res(ctx.status('200'), ctx.json({ notes: allNotes }));
+    return res(ctx.status(200), ctx.json({ notes: allNotes }));
   }),
   rest.post('/notes', (req, res, ctx) => {
     if (req.body.title && req.body.content) {
@@ -132,16 +133,16 @@ export const handlers = [
         title: req.body.title,
         content: req.body.content,
       });
-      return res(ctx.status('200'), ctx.json({ status: 'Added new post!' }));
+      return res(ctx.status(200), ctx.json({ status: 'Added new post!' }));
     }
-    return res(ctx.status('404'), ctx.json({ error: 'Not Found' }));
+    return res(ctx.status(404), ctx.json({ error: 'Not Found' }));
   }),
   rest.post('/removeNote', (req, res, ctx) => {
     if (req.body.id) {
       db.note.delete({ where: { id: { equals: req.body.id } } });
-      return res(ctx.status('200'), ctx.json({ status: 'Removed post!' }));
+      return res(ctx.status(200), ctx.json({ status: 'Removed post!' }));
     }
-    return res(ctx.status('404'), ctx.json({ error: 'Not Found' }));
+    return res(ctx.status(404), ctx.json({ error: 'Not Found' }));
   }),
   rest.post('/messages', (req, res, ctx) => {
     if (req.body.title && req.body.description) {
@@ -152,14 +153,46 @@ export const handlers = [
         author: req.body.author,
         date: req.body.date,
       });
-      return res(ctx.status('201'), ctx.json({ status: 'Added new message!' }));
+      return res(ctx.status(201), ctx.json({ status: 'Added new message!' }));
     }
-    return res(ctx.status('404'), ctx.json({ status: 'Not found!' }));
+    return res(ctx.status(404), ctx.json({ status: 'Not found!' }));
   }),
   rest.get('/messages/:id', (req, res, ctx) => {
     if (req.params.id) {
-      return res(ctx.status('200'), ctx.json({ messages: db.message.findMany({ where: { group: { equals: req.params.id } } }) }));
+      return res(ctx.status(200), ctx.json({ messages: db.message.findMany({ where: { group: { equals: req.params.id } } }) }));
     }
-    return res(ctx.status('404'), ctx.json({ status: 'Not found!' }));
+    return res(ctx.status(404), ctx.json({ status: 'Not found!' }));
+  }),
+  rest.get('/todo', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ todos: db.todo.getAll() }));
+  }),
+  rest.post('/todo', (req, res, ctx) => {
+    if (req.body.title && req.body.description) {
+      const newTodo = {
+        id: nanoid(),
+        title: req.body.title,
+        description: req.body.description,
+        isActive: true,
+      };
+      db.todo.create(newTodo);
+      return res(ctx.status(201), ctx.json({ info: 'Successfully created post!', createdPost: newTodo }));
+    }
+    return res(ctx.status(400), ctx.json({ info: "Sorry, but you didn't send data!" }));
+  }),
+  rest.post('/todo/change', (req, res, ctx) => {
+    if (req.body.id) {
+      console.log(db.todo.getAll());
+      db.todo.update({ where: { id: { equals: req.body.id } }, data: { isActive: () => false } });
+      console.log(db.todo.getAll());
+      return res(ctx.status(200), ctx.json({ info: 'Successfully changed status' }));
+    }
+    return res(ctx.status(400), ctx.json({ info: "Sorry, but you didn't send data!" }));
+  }),
+  rest.post('/todo/delete', (req, res, ctx) => {
+    if (req.body.id) {
+      db.todo.delete({ where: { id: { equals: req.body.id } } });
+      return res(ctx.status(200), ctx.json({ info: 'Successfully removed' }));
+    }
+    return res(ctx.status(400), ctx.json({ info: "Sorry, but you didn't send data!" }));
   }),
 ];

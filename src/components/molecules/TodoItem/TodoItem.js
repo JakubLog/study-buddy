@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ItemWrapper, ItemTitle, ItemContent, ItemButton } from './TodoItem.styles';
-import { changeStateTodo as Change, removeTodo as Remove } from 'store';
-import { useDispatch } from 'react-redux';
+import { useChangeStateTodoMutation, useRemoveTodoMutation } from 'store';
 
 const TodoItem = ({ task, content, isActive, id }) => {
-  const dispatch = useDispatch();
+  const [change, rest] = useChangeStateTodoMutation();
+  const [remove, restTwo] = useRemoveTodoMutation();
 
-  const changeTodo = (id, task, content) => dispatch(Change({ id, task, content }));
-  const removeTodo = (id) => dispatch(Remove({ id }));
+  const changeTodo = (id) => change({ id });
+  const removeTodo = (id) => {
+    remove({ id });
+    console.log('Stop');
+  };
 
   return (
     <ItemWrapper>
       <ItemTitle>{task}</ItemTitle>
       <ItemContent>{content}</ItemContent>
       {isActive ? (
-        <ItemButton aria-label="Todo change" onClick={() => changeTodo(id, task, content)}>
+        <ItemButton aria-label="Todo change" onClick={() => changeTodo(id)}>
           Done
         </ItemButton>
       ) : (
