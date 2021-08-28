@@ -1,13 +1,13 @@
-import UserListItem from './UserListItem';
+import StudentListItem from './StudentListItem';
 
 const object = {
-  title: 'components/molecules/UserListItem',
-  component: UserListItem,
+  title: 'components/molecules/StudentListItem',
+  component: StudentListItem,
 };
 
 export default object;
 
-const template = (args) => <UserListItem {...args} />;
+const template = (args) => <StudentListItem {...args} />;
 
 export const Default = template.bind({});
 Default.args = {

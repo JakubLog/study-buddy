@@ -1,12 +1,12 @@
 import React from 'react';
 import { UserShape } from 'types';
 import PropTypes from 'prop-types';
-import { StyledListItem } from './UserListItem.styles';
+import { StyledListItem } from './StudentListItem.styles';
 import IconButton from 'components/atoms/IconButton/IconButton';
 import Person from 'components/atoms/Person/Person';
 import Average from 'components/atoms/Average/Average';
 
-const UserListItem = ({ openModal, userData: { id, name, attendance, average = '0%' } }) => {
+const StudentListItem = ({ openModal, studentData: { id, name, attendance, average = '0%' } }) => {
   return (
     <StyledListItem>
       <Average average={average} />
@@ -18,8 +18,8 @@ const UserListItem = ({ openModal, userData: { id, name, attendance, average = '
   );
 };
 
-UserListItem.propTypes = {
+StudentListItem.propTypes = {
   userData: PropTypes.shape(UserShape),
 };
 
-export default UserListItem;
+export default StudentListItem;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import UserList from 'components/organisms/UserList/UserList';
+import StudentsList from 'components/organisms/StudentsList/StudentsList';
 import { Redirect } from 'react-router';
 import { ViewWrapper } from 'components/molecules/VievWrapper/ViewWrapper';
 import { DashboardWrapper } from './Dashboard.styles';
@@ -41,7 +41,7 @@ const Dashboard = () => {
         <>
           <InfoBar activeGroup={id} groups={groups.groups} />
           <ViewWrapper>
-            <UserList openModal={openModalStudents} group={id} users={students.students} />
+            <StudentsList openModal={openModalStudents} groupId={id} students={students.students} />
           </ViewWrapper>
           {isOpen ? (
             <Modal closeModal={closeModal}>

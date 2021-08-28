@@ -1,4 +1,4 @@
-import UserList from './UserList';
+import UserList from './StudentsList';
 
 const object = {
   title: 'components/organisms/UserList',
