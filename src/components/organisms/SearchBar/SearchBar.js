@@ -29,7 +29,7 @@ const SearchBar = () => {
         </p>
       </StatusInfo>
       <Input {...getInputProps({ ref: searchInput })} placeholder="Find student" />
-      <HintWrapper {...getMenuProps()} isVisible={isOpen && found.length > 0}>
+      <HintWrapper aria-label="Searchbar hint wrapper" {...getMenuProps()} isVisible={isOpen && found.length > 0}>
         {isOpen &&
           found.map((item, index) => (
             <HintItem isHighlighted={highlightedIndex === index} key={`${item}${index}`} {...getItemProps({ item, index })}>
