@@ -47,7 +47,7 @@ const NewsSection = () => {
       <NewsTitle>University news feed</NewsTitle>
       {articles.length > 0 ? (
         articles.map(({ id, title, category, feed, image = null }) => (
-          <NewsArticle key={id} title={title} category={category} feed={feed} image={image} />
+          <NewsArticle key={id} id={id} title={title} category={category} feed={feed} image={image} />
         ))
       ) : (
         <NewsTitle>{error ? error : 'Loading...'}</NewsTitle>

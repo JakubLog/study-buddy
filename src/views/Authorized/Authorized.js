@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
 import Notes from '../Notes/Notes';
 import Todo from '../Todo/Todo';
+import Feed from 'views/Feed/Feed';
 
 const Authorized = () => {
   return (
@@ -22,6 +23,9 @@ const Authorized = () => {
           </Route>
           <Route path="/todolist/">
             <Todo />
+          </Route>
+          <Route path="/feed/:id">
+            <Feed />
           </Route>
         </Switch>
       </Wrapper>
