@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import axios from 'axios';
 import { StyledTitle, Wrapper, StyledSubTitle, Image } from './Feed.styles';
+import { Redirect } from 'react-router-dom';
 
 const Feed = () => {
   const { id } = useParams();
@@ -29,6 +30,8 @@ const Feed = () => {
       }
     })();
   }, [id]);
+
+  if (!id) return <Redirect to="/group/A" />;
 
   if (hasError || article === undefined) {
     return (

@@ -24,7 +24,7 @@ const Authorized = () => {
           <Route path="/todolist/">
             <Todo />
           </Route>
-          <Route path="/feed/:id">
+          <Route path="/feed/:id?">
             <Feed />
           </Route>
         </Switch>
