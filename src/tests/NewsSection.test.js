@@ -25,10 +25,4 @@ describe('News Section', () => {
     render(<NewsSection />);
     await screen.findByText(/Test/);
   });
-
-  it('Checks display loading information', async () => {
-    mock.onPost('https://graphql.datocms.com/', { query }).reply(200, { data: { allArticles: [] } });
-    render(<NewsSection />);
-    await screen.findByText(/Loading.../);
-  });
 });

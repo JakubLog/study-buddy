@@ -4,7 +4,7 @@ import axios from 'axios';
 import { StyledTitle, Wrapper, StyledSubTitle, Image } from './Feed.styles';
 import { Redirect } from 'react-router-dom';
 
-const Feed = () => {
+const Feed = ({ isTest }) => {
   const { id } = useParams();
   const [article, setArticle] = useState({});
   const [isLoading, setLoadingState] = useState(true);
@@ -20,7 +20,7 @@ const Feed = () => {
           },
         } = await axios.post(
           'https://graphql.datocms.com/',
-          { query: `{allArticles(filter: {id:{eq: "${id}"}}) {id,title,category,feed,image{url}}}` },
+          { query: `{allArticles(filter: {id:{eq: "${id || isTest}"}}) {id,title,category,feed,image{url}}}` },
           { headers: { Authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}` } }
         );
         setArticle(allArticles[0]);
@@ -29,13 +29,14 @@ const Feed = () => {
         setError(e.message);
       }
     })();
-  }, [id]);
+  }, [id, isTest]);
 
-  if (!id) return <Redirect to="/group/A" />;
+  if (!isTest && !id) return <Redirect to="/group/A" />;
 
   if (hasError || article === undefined) {
     return (
       <Wrapper>
+        {console.log(hasError, article)}
         <StyledTitle>Sorry, something went wrong!</StyledTitle>
         <StyledSubTitle>We have a small problem. Check your url!</StyledSubTitle>
         <p>
