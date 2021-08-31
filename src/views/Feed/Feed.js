@@ -36,7 +36,6 @@ const Feed = ({ isTest }) => {
   if (hasError || article === undefined) {
     return (
       <Wrapper>
-        {console.log(hasError, article)}
         <StyledTitle>Sorry, something went wrong!</StyledTitle>
         <StyledSubTitle>We have a small problem. Check your url!</StyledSubTitle>
         <p>
