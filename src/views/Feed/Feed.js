@@ -20,7 +20,7 @@ const Feed = ({ isTest }) => {
           },
         } = await axios.post(
           'https://graphql.datocms.com/',
-          { query: `{allArticles(filter: {id:{eq: "${id}"}}) {id,title,category,feed,image{url}}}` },
+          { query: `{allArticles(filter: {id:{eq: "${id || isTest}"}}) {id,title,category,feed,image{url}}}` },
           { headers: { Authorization: `Bearer ${process.env.REACT_APP_DATOCMS_TOKEN}` } }
         );
         setArticle(allArticles[0]);
@@ -29,7 +29,7 @@ const Feed = ({ isTest }) => {
         setError(e.message);
       }
     })();
-  }, [id]);
+  }, [id, isTest]);
 
   if (!isTest && !id) return <Redirect to="/group/A" />;
 

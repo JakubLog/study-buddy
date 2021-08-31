@@ -11,8 +11,16 @@ describe('Feed tests', () => {
   });
 
   it('Displays error when bad request', async () => {
-    mock.onPost('https://graphql.datocms.com/', { query: `{allArticles(filter: {id:{eq: "321"}}) {id,title,category,feed,image{url}}}` }).reply(500);
-    render(<Feed isTest />);
-    await screen.findByText('Sorry, something went wrong!');
+    mock.onPost('https://graphql.datocms.com/', { query: `{allArticles(filter: {id:{eq: "132"}}) {id,title,category,feed,image{url}}}` }).reply(500);
+    render(<Feed isTest={'132'} />);
+    expect(await screen.findByText('Sorry, something went wrong!')).toBeInTheDocument();
+  });
+  it('Displays data when valid request', async () => {
+    mock
+      .onPost('https://graphql.datocms.com/', { query: `{allArticles(filter: {id:{eq: "46191177"}}) {id,title,category,feed,image{url}}}` })
+      .reply(200, { data: { allArticles: [{ id: '46191177', title: 'Test title', category: 'test', feed: 'test', image: null }] } });
+    render(<Feed isTest={'46191177'} />);
+    await screen.findAllByText('test');
+    expect(await screen.findByText('Test title')).toBeInTheDocument();
   });
 });
