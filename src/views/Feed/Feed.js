@@ -4,7 +4,7 @@ import axios from 'axios';
 import { StyledTitle, Wrapper, StyledSubTitle, Image } from './Feed.styles';
 import { Redirect } from 'react-router-dom';
 
-const Feed = () => {
+const Feed = ({ isTest }) => {
   const { id } = useParams();
   const [article, setArticle] = useState({});
   const [isLoading, setLoadingState] = useState(true);
@@ -31,11 +31,12 @@ const Feed = () => {
     })();
   }, [id]);
 
-  if (!id) return <Redirect to="/group/A" />;
+  if (!isTest && !id) return <Redirect to="/group/A" />;
 
   if (hasError || article === undefined) {
     return (
       <Wrapper>
+        {console.log(hasError, article)}
         <StyledTitle>Sorry, something went wrong!</StyledTitle>
         <StyledSubTitle>We have small problem. Check your url!</StyledSubTitle>
         <p>Looks like you are trying to broke something... but not with us!</p>
