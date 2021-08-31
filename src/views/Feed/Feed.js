@@ -37,8 +37,10 @@ const Feed = () => {
     return (
       <Wrapper>
         <StyledTitle>Sorry, something went wrong!</StyledTitle>
-        <StyledSubTitle>We have small problem. Check your url!</StyledSubTitle>
-        <p>Looks like you are trying to broke something... but not with us!</p>
+        <StyledSubTitle>We have a small problem. Check your url!</StyledSubTitle>
+        <p>
+          Looks like you are trying to broke something... but not with us! <br /> Please try again in a second.
+        </p>
       </Wrapper>
     );
   }
