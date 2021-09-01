@@ -50,7 +50,7 @@ const Feed = ({ isTest }) => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div>
+        <div aria-label="feed">
           <StyledTitle>{article.title}</StyledTitle>
           <StyledSubTitle>{article.category}</StyledSubTitle>
           {article.image && <Image src={article.image.url} alt={article.title} />}

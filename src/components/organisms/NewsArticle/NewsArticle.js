@@ -9,7 +9,7 @@ const NewsArticle = ({ id, title, category, feed, image }) => {
 
   return (
     <NewsArticleWrapper>
-      <ArticleTitle>{title}</ArticleTitle>
+      <ArticleTitle aria-label="Feed title">{title}</ArticleTitle>
       <ArticleCategory>{category}</ArticleCategory>
       <ArticleFeed isImage={image ? true : false}>
         {feed}
