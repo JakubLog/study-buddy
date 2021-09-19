@@ -1,6 +1,16 @@
 # Let's study! For teachers and students 🙂
 
+<div style="display: flex;">
+  <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/jakublog/study-buddy">
+  <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/jakublog/study-buddy">
+</div>
+<div style="display: flex;">
+  <img alt="GitHub package.json dependency version (prod)" src="https://img.shields.io/github/package-json/dependency-version/jakublog/study-buddy/react">
+</div>
+
 ## About ✍️
+
+<img src="https://socialify.git.ci/JakubLog/study-buddy/image?description=1&font=Inter&language=1&owner=1&pattern=Charlie%20Brown&theme=Dark" alt="study-buddy" width="640" height="320"/>
 
 Do you study? Do you teach people? Just see this project! Study-buddy is
 platform for teachers and students for learning. ✨
