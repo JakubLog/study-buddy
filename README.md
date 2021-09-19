@@ -42,10 +42,12 @@ Test Login Details:
 1. Copy this repository
 ```
 gh repo clone JakubLog/study-buddy
+cd ./study-buddy
 ```
 or
 ```
 git clone https://github.com/JakubLog/study-buddy.git
+cd ./study-buddy
 ```
 2. Install required packages
 ```
