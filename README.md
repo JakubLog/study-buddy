@@ -65,6 +65,8 @@ And that's all!
 All of styles and views are designed by Adam Romański. <br/>
 Colors were selected by Adam Romański too.
 
+Figma project: [click here](https://www.figma.com/file/YF0zQCMfnDfd7omgx6d6J3/Hello-Roman-%E2%80%93-Kurs-React?node-id=276%3A0) <br>
+
 ![image](https://user-images.githubusercontent.com/77537823/133914684-a8fbe009-73b6-4fef-bed4-0524cec7a398.png)
 ![image](https://user-images.githubusercontent.com/77537823/133914719-31e30a26-2624-40cf-8c4f-c5fecef16777.png)
 ![image](https://user-images.githubusercontent.com/77537823/133914738-5627bfeb-4d7b-474d-bf70-4aeac8ce3ca6.png)
